@@ -19,9 +19,3 @@ A portfolio management application for investment trusts and stocks.
 ### Infrastructure
 - Vercel
 - Render
-
-## Progress
-
-- [x] DAY1: Project planning
-- [x] DAY2: Database design
-- [x] DAY3: Frontend setup
