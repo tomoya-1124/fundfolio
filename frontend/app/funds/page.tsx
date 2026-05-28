@@ -1,3 +1,4 @@
+import DeleteFundButton from "./DeleteFundButton";
 async function getFunds() {
   const res = await fetch("http://localhost:8080/api/funds", {
     cache: "no-store",
@@ -50,12 +51,16 @@ export default async function FundsPage() {
                     損益：¥{profit.toLocaleString()}（{profitRate.toFixed(2)}%）
                   </p>
                </div>
+               <div className="mt-6 flex gap-4">
                 <a
                   href={`/funds/${fund.id}/edit`}
-                  className="inline-block mt-6 text-sm text-zinc-300 underline hover:text-white"
+                  className="text-sm text-zinc-300 underline hover:text-white"
                 >
                   編集する
                 </a>
+
+                <DeleteFundButton id={fund.id} />
+              </div>
               </div>
             );
           })}

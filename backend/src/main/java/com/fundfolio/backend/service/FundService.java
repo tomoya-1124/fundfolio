@@ -44,4 +44,7 @@ public class FundService {
 
         return fundRepository.save(fund);
     }
+    public void delete(Long id) {
+        fundRepository.deleteById(id);
+    }
 }
