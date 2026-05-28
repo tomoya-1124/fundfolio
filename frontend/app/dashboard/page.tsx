@@ -1,5 +1,5 @@
 async function getFunds() {
-  const res = await fetch("http://localhost:8080/api/funds", {
+  const res = await fetch("http://process.env.NEXT_PUBLIC_API_URL/api/funds", {
     cache: "no-store",
   });
 

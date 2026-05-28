@@ -16,7 +16,7 @@ export default function NewFundPage() {
     e.preventDefault();
 
     const res = await fetch(
-      "http://localhost:8080/api/funds",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/funds`,
       {
         method: "POST",
         headers: {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import DeleteFundButton from "./DeleteFundButton";
 
 // async function getFunds() {
-//   const res = await fetch("http://localhost:8080/api/funds", {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/funds`, {
 //     cache: "no-store",
 //   });
 
@@ -28,7 +28,7 @@ export default function FundsPage() {
     useState("すべて");
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/funds")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/funds`)
       .then((res) => res.json())
       .then((data) => setFunds(data));
   }, []);

@@ -16,7 +16,7 @@ export default function EditFundPage() {
   const [currentValue, setCurrentValue] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/funds/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/funds/${id}`)
         .then((res) => {
         if (!res.ok) {
             throw new Error("データ取得失敗");
@@ -39,7 +39,7 @@ export default function EditFundPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await fetch(`http://localhost:8080/api/funds/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/funds/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

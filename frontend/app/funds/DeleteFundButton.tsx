@@ -18,7 +18,7 @@ export default function DeleteFundButton({
       return;
     }
 
-    await fetch(`http://localhost:8080/api/funds/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/funds/${id}`, {
       method: "DELETE",
     });
 
