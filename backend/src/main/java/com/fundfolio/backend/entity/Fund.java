@@ -80,4 +80,8 @@ public class Fund {
     public String getMemo() {
         return memo;
     }
+
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
+    }
 }

@@ -20,4 +20,8 @@ public class FundService {
     public List<Fund> findAll() {
         return fundRepository.findAll();
     }
+
+    public Fund save(Fund fund) {
+        return fundRepository.save(fund);
+    }
 }

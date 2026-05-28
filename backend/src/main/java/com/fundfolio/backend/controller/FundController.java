@@ -8,6 +8,8 @@ import com.fundfolio.backend.dto.CreateFundRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -25,11 +27,17 @@ public class FundController {
     public List<Fund> getFunds() {
         return fundService.findAll();
     }
+    // @PostMapping("/api/funds")
+    // public String createFund(@RequestBody CreateFundRequest request) {
+
+    //     System.out.println("銘柄名: " + request.getFundName());
+
+    //     return "OK";
+    // }
     @PostMapping("/api/funds")
-    public String createFund(@RequestBody CreateFundRequest request) {
-
-        System.out.println("銘柄名: " + request.getFundName());
-
-        return "OK";
+    public Fund createFund(
+        @RequestBody Fund fund
+    ) {
+        return fundService.save(fund);
     }
 }
