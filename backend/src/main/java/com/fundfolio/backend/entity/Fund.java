@@ -77,6 +77,42 @@ public class Fund {
         return basePrice;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public void setAssetType(String assetType) {
+        this.assetType = assetType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public void setAcquisitionAmount(BigDecimal acquisitionAmount) {
+        this.acquisitionAmount = acquisitionAmount;
+    }
+
+    public void setCurrentValue(BigDecimal currentValue) {
+        this.currentValue = currentValue;
+    }
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setBasePrice(BigDecimal basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     public String getMemo() {
         return memo;
     }

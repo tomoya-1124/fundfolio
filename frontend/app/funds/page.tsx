@@ -49,7 +49,13 @@ export default async function FundsPage() {
                   >
                     損益：¥{profit.toLocaleString()}（{profitRate.toFixed(2)}%）
                   </p>
-                </div>
+               </div>
+                <a
+                  href={`/funds/${fund.id}/edit`}
+                  className="inline-block mt-6 text-sm text-zinc-300 underline hover:text-white"
+                >
+                  編集する
+                </a>
               </div>
             );
           })}

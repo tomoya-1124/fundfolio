@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -48,5 +49,12 @@ public class FundController {
             @PathVariable Long id
     ) {
         return fundService.findById(id);
+    }
+    @PutMapping("/api/funds/{id}")
+    public Fund updateFund(
+            @PathVariable Long id,
+            @RequestBody Fund fund
+    ) {
+        return fundService.update(id, fund);
     }
 }

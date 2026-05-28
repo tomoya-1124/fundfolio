@@ -28,4 +28,20 @@ public class FundService {
         return fundRepository.findById(id)
                 .orElseThrow();
     }
+    public Fund update(Long id, Fund updatedFund) {
+        Fund fund = fundRepository.findById(id)
+                .orElseThrow();
+
+        fund.setFundName(updatedFund.getFundName());
+        fund.setProductType(updatedFund.getProductType());
+        fund.setAssetType(updatedFund.getAssetType());
+        fund.setAccountType(updatedFund.getAccountType());
+        fund.setAcquisitionAmount(updatedFund.getAcquisitionAmount());
+        fund.setCurrentValue(updatedFund.getCurrentValue());
+        fund.setQuantity(updatedFund.getQuantity());
+        fund.setBasePrice(updatedFund.getBasePrice());
+        fund.setMemo(updatedFund.getMemo());
+
+        return fundRepository.save(fund);
+    }
 }
