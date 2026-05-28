@@ -4,9 +4,14 @@ import com.fundfolio.backend.entity.Fund;
 import com.fundfolio.backend.service.FundService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.fundfolio.backend.dto.CreateFundRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class FundController {
 
@@ -19,5 +24,12 @@ public class FundController {
     @GetMapping("/api/funds")
     public List<Fund> getFunds() {
         return fundService.findAll();
+    }
+    @PostMapping("/api/funds")
+    public String createFund(@RequestBody CreateFundRequest request) {
+
+        System.out.println("銘柄名: " + request.getFundName());
+
+        return "OK";
     }
 }
