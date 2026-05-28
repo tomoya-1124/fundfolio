@@ -1,66 +1,71 @@
-const funds = [
-  {
-    id: 1,
-    fund_name: "eMAXIS Slim 全世界株式",
-    current_value: 125000,
-    acquisition_amount: 100000,
-  },
-  {
-    id: 2,
-    fund_name: "S&P500 Index",
-    current_value: 95000,
-    acquisition_amount: 100000,
-  },
-];
+async function getFunds() {
+  const res = await fetch("http://localhost:8080/api/funds", {
+    cache: "no-store",
+  });
 
-export default function FundsPage() {
+  if (!res.ok) {
+    throw new Error("データ取得失敗");
+  }
+
+  return res.json();
+}
+
+export default async function FundsPage() {
+  const funds = await getFunds();
+
   return (
-    <main className="min-h-screen bg-zinc-950 text-white p-8">
-      <h1 className="text-3xl font-bold mb-6">保有銘柄一覧</h1>
+    <main className="min-h-screen bg-black text-white p-10">
+      <div className="max-w-5xl">
+        <h1 className="text-5xl font-bold mb-10">
+          保有銘柄一覧
+        </h1>
 
-      <div className="max-w-3xl grid gap-4">
-        {funds.map((fund) => {
-          const profit =
-            fund.current_value - fund.acquisition_amount;
+        <div className="space-y-6">
+          {funds.map((fund: any) => {
+            const profit =
+              fund.currentValue - fund.acquisitionAmount;
 
-          const profitRate =
-            (profit / fund.acquisition_amount) * 100;
+            const profitRate =
+              (profit / fund.acquisitionAmount) * 100;
 
-          return (
-            <div
-              key={fund.id}
-              className="bg-zinc-900 border border-zinc-800 rounded-xl p-5"
-            >
-              <h2 className="text-xl font-semibold mb-3">
-                {fund.fund_name}
-              </h2>
+            const isProfit = profit >= 0;
 
-              <div className="space-y-1 text-sm text-zinc-300">
-                <p className="text-lg font-semibold">
-                  評価額：
-                  ¥{fund.current_value.toLocaleString()}
-                </p>
+            return (
+              <div
+                key={fund.id}
+                className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-zinc-700 transition"
+              >
+                <h2 className="text-3xl font-bold mb-6">
+                  {fund.fundName}
+                </h2>
 
-                <p>
-                  取得額：
-                  ¥{fund.acquisition_amount.toLocaleString()}
-                </p>
+                <div className="space-y-2 text-xl">
+                  <p className="text-2xl font-bold">
+                    評価額：
+                    ¥{fund.currentValue.toLocaleString()}
+                  </p>
 
-                <p
-                  className={
-                    profit >= 0
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }
-                >
-                  損益：
-                  ¥{profit.toLocaleString()}
-                  （{profitRate.toFixed(2)}%）
-                </p>
+                  <p className="text-zinc-300 text-lg">
+                    取得額：
+                    ¥{fund.acquisitionAmount.toLocaleString()}
+                  </p>
+
+                  <p
+                    className={
+                      isProfit
+                        ? "text-green-400 font-bold"
+                        : "text-red-400 font-bold"
+                    }
+                  >
+                    損益：
+                    ¥{profit.toLocaleString()}
+                    （{profitRate.toFixed(2)}%）
+                  </p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </main>
   );
