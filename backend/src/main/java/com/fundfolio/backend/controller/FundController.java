@@ -3,6 +3,7 @@ package com.fundfolio.backend.controller;
 import com.fundfolio.backend.entity.Fund;
 import com.fundfolio.backend.service.FundService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import com.fundfolio.backend.dto.CreateFundRequest;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ public class FundController {
     public List<Fund> getFunds() {
         return fundService.findAll();
     }
+    
     // @PostMapping("/api/funds")
     // public String createFund(@RequestBody CreateFundRequest request) {
 
@@ -39,5 +41,12 @@ public class FundController {
         @RequestBody Fund fund
     ) {
         return fundService.save(fund);
+    }
+
+    @GetMapping("/api/funds/{id}")
+    public Fund getFundById(
+            @PathVariable Long id
+    ) {
+        return fundService.findById(id);
     }
 }

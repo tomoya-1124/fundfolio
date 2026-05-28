@@ -24,4 +24,8 @@ public class FundService {
     public Fund save(Fund fund) {
         return fundRepository.save(fund);
     }
+    public Fund findById(Long id) {
+        return fundRepository.findById(id)
+                .orElseThrow();
+    }
 }
