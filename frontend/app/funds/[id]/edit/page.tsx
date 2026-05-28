@@ -17,17 +17,25 @@ export default function EditFundPage() {
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/funds/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFundName(data.fundName);
-        setProductType(data.productType);
-        setAssetType(data.assetType);
-        setAccountType(data.accountType);
-        setAcquisitionAmount(String(data.acquisitionAmount));
-        setCurrentValue(String(data.currentValue));
-      });
-  }, [id]);
-
+        .then((res) => {
+        if (!res.ok) {
+            throw new Error("データ取得失敗");
+        }
+        return res.json();
+        })
+        .then((data) => {
+        setFundName(data.fundName ?? "");
+        setProductType(data.productType ?? "投資信託");
+        setAssetType(data.assetType ?? "外国株式");
+        setAccountType(data.accountType ?? "NISA");
+        setAcquisitionAmount(String(data.acquisitionAmount ?? ""));
+        setCurrentValue(String(data.currentValue ?? ""));
+        })
+        .catch((error) => {
+        console.error(error);
+        });
+    }, [id]);
+    
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
