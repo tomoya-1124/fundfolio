@@ -1,26 +1,106 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import DeleteFundButton from "./DeleteFundButton";
-async function getFunds() {
-  const res = await fetch("http://localhost:8080/api/funds", {
-    cache: "no-store",
+
+// async function getFunds() {
+//   const res = await fetch("http://localhost:8080/api/funds", {
+//     cache: "no-store",
+//   });
+
+//   if (!res.ok) {
+//     throw new Error("データ取得失敗");
+//   }
+
+//   return res.json();
+// }
+
+export default function FundsPage() {
+  
+  const [funds, setFunds] = useState([]);
+
+  const [search, setSearch] = useState("");
+
+  const [productType, setProductType] =
+    useState("すべて");
+
+  const [accountType, setAccountType] =
+    useState("すべて");
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/funds")
+      .then((res) => res.json())
+      .then((data) => setFunds(data));
+  }, []);
+
+  const filteredFunds = funds.filter((fund: any) => {
+
+    const matchesSearch =
+      fund.fundName
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+    const matchesProductType =
+      productType === "すべて" ||
+      fund.productType === productType;
+
+    const matchesAccountType =
+      accountType === "すべて" ||
+      fund.accountType === accountType;
+
+    return (
+      matchesSearch &&
+      matchesProductType &&
+      matchesAccountType
+    );
   });
-
-  if (!res.ok) {
-    throw new Error("データ取得失敗");
-  }
-
-  return res.json();
-}
-
-export default async function FundsPage() {
-  const funds = await getFunds();
-
   return (
     <main className="min-h-screen bg-black text-white p-10">
       <div className="max-w-5xl">
         <h1 className="text-5xl font-bold mb-10">保有銘柄一覧</h1>
+        <div className="mb-8 space-y-4">
 
-        <div className="space-y-6">
-          {funds.map((fund: any) => {
+            <input
+              type="text"
+              placeholder="銘柄名で検索"
+              value={search}
+              onChange={(e) =>
+                setSearch(e.target.value)
+              }
+              className="w-full rounded-lg bg-zinc-900 border border-zinc-700 px-4 py-3 text-white"
+            />
+
+            <div className="flex gap-4">
+
+              <select
+                value={productType}
+                onChange={(e) =>
+                  setProductType(e.target.value)
+                }
+                className="rounded-lg bg-zinc-900 border border-zinc-700 px-4 py-3 text-white"
+              >
+                <option>すべて</option>
+                <option>投資信託</option>
+                <option>株式</option>
+              </select>
+
+              <select
+                value={accountType}
+                onChange={(e) =>
+                  setAccountType(e.target.value)
+                }
+                className="rounded-lg bg-zinc-900 border border-zinc-700 px-4 py-3 text-white"
+              >
+                <option>すべて</option>
+                <option>NISA</option>
+                <option>特定口座</option>
+                <option>一般口座</option>
+              </select>
+
+            </div>
+          </div>
+          <div className="space-y-6">
+          {filteredFunds.map((fund: any) => {
             const profit = fund.currentValue - fund.acquisitionAmount;
             const profitRate = (profit / fund.acquisitionAmount) * 100;
             const isProfit = profit >= 0;
