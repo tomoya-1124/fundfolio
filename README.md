@@ -2,6 +2,15 @@
 
 投資信託・株式の保有状況を管理し、評価額・損益・資産状況を可視化するポートフォリオ管理アプリです。
 
+## Demo
+
+Frontend:
+https://fundfolio-7j08ne510-tomoyas-projects-0504aae2.vercel.app/
+
+Backend API:
+https://fundfolio.onrender.com/api/funds
+
+
 ## Features
 
 - 保有銘柄の登録
@@ -69,15 +78,23 @@ cd backend
 ./gradlew bootRun
 ```
 
-### Database
+### Environment Variables
 
-PostgreSQLで以下のDBを作成します。
+frontend/.env.local
 
-```sql
-CREATE DATABASE fundfolio;
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+
+backend/src/main/resources/application.properties
+
+spring.datasource.url=YOUR_DATABASE_URL
+spring.datasource.username=YOUR_DATABASE_USERNAME
+spring.datasource.password=YOUR_DATABASE_PASSWORD
 ```
 
 ## Screenshots
+
+主要画面のスクリーンショットです。
 
 ### Top
 ![Top](docs/images/top.png)
@@ -131,3 +148,21 @@ sequenceDiagram
     B-->>F: JSON Response
     F-->>U: Render UI
 ```
+
+## Deployment Architecture
+
+```mermaid
+flowchart LR
+    User[User Browser]
+    Vercel[Vercel / Next.js]
+    Render[Render / Spring Boot]
+    Neon[(Neon PostgreSQL)]
+
+    User --> Vercel
+    Vercel --> Render
+    Render --> Neon
+```
+
+## Author
+
+Developed by Tomonari Abe
